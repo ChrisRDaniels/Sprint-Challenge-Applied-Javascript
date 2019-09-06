@@ -15,11 +15,9 @@ axios
 .then( response => {
     console.log(response.data)
 
-    NewCard.appendChild(cardCreator(response.data))
+    NewTabs.appendChild(TabCreator(response.data))
 })
-.catch(error => {
-    error
-})
+.catch(error => error)
 
 function TabCreator(data) {
     const topics = document.createElement('div');
@@ -31,5 +29,5 @@ function TabCreator(data) {
     //data
     topics.textContent = data.topics;
 
-    return NewTab
+    return topics;
 }
