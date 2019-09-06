@@ -30,10 +30,10 @@ function Header(data) {
     temp.textContent = `98°`;
     
     // appends
-    header.appendChild(date);
-    header.appendChild(temp);
-    header. appendChild(headText);
-    header.appendchild(header)
+    Newheader.appendChild(date);
+    Newheader.appendChild(temp);
+    Newheader. appendChild(headText);
+    Newheader.appendchild(header)
     
     return NewHeader;
 }
