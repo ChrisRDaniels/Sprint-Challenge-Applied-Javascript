@@ -18,43 +18,54 @@
 //
 // Create a card for each of the articles and add the card to the DOM.
 
-const container = document.querySelector('.card');
+const container = document.querySelector('.cards-container');
 
 axios
 .get('https://lambda-times-backend.herokuapp.com/articles')
 .then( response => {
-    console.log(response.data.articles.javascript)
-    response.data.articles.javascript.forEach((item) =>{
-        const getCard = cardCreator(item)
-        container.appendChild(getCard);
-    })
+    console.log("response.data.articles", response.data.articles)
+    const allKeys = Object.keys(response.data.articles);
+    console.log('allkeys', allKeys);
+    allKeys.forEach(key => {
+        console.log('key', key);
+        console.log(response.data.articles[key]);
+        response.data.articles[key].forEach(article => {
+            console.log('article', article);
+            container.appendChild(cardCreator(article))
+                })
+          })
+       })
+   
 
-    
-})
 .catch(error => {
     error
 })
 
 function cardCreator(data) {
-    const newCard = document.createElement('div');
-    card.classList.add('newCard')
-    
+    const card = document.createElement('div');
     const headline = document.createElement('div');
-    headline.classList.add('headline');
-    
     const author = document.createElement('div');
+    const imgCont = document.createElement('div');
+    const profImg = document.createElement('img');
+    const name = document.createElement('span');
+
+    card.classList.add('card');
+    headline.classList.add('headline');
     author.classList.add('author');
+    imgCont.classList.add('img-container');
 
-    const image = document.createElement('div');
-    image.classList.add('image-container');
-    image.src = `${authorPhoto}`;
-    author.appendChild(image);
-
-    const span = document.createElement('span');
-    span.classList.add(`${authorName}`);
-    card.appendChild(span);
+    // text content
+    headline.textContent = `${data.headline}`;
+    profImg.src = `${data.authorPhoto}`;
+    name.textContent = `${data.authorName}`;
 
     // appends
 
-    container.appendChild(newCard);
+   card.appendChild(headline);
+   card.appendChild(author);
+   author.appendChild(imgCont);
+   imgCont.appendChild(profImg);
+   author.appendChild(name);
+
+   return card;
 }
